@@ -60,29 +60,24 @@ if(HUNTER_ENABLED)
   write_basic_package_version_file(
     "${VERSION_CONFIG}" COMPATIBILITY ExactVersion
   )
-
   configure_package_config_file(
     "cmake/Config.cmake.in"
     "${PROJECT_CONFIG}"
      INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
   )
-
   install(
     TARGETS ${PROJECT_TARGET} 
     EXPORT "${TARGETS_EXPORT_NAME}"
-    INCLUDES DESTINATION include
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
   )
-
   install(
     FILES ${TINYGLTF_HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
   )
-
   install(
     FILES "${PROJECT_CONFIG}" "${VERSION_CONFIG}"
     DESTINATION "${CONFIG_INSTALL_DIR}"
   )
-
   install(
     EXPORT "${TARGETS_EXPORT_NAME}"
     NAMESPACE "${NAMESPACE}"
@@ -97,7 +92,6 @@ else()
     DESTINATION
     include
   )
-
   INSTALL ( FILES
     cmake/TinyGLTFConfig.cmake
     DESTINATION
