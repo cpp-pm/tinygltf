@@ -36,6 +36,13 @@ endif (TINYGLTF_BUILD_VALIDATOR_EXAMPLE)
 
 if(HUNTER_ENABLED)
   include(GNUInstallDirs)
+
+  hunter_add_package(stb)
+  find_package(stb CONFIG REQUIRED)
+
+  hunter_add_package(RapidJSON)
+  find_package(RapidJSON CONFIG REQUIRED)
+
   set(PROJECT_TARGET tinygltf)
   add_library(${PROJECT_TARGET} INTERFACE)
   set(TINYGLTF_HEADERS tiny_gltf.h)
