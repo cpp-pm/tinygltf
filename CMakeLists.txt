@@ -47,8 +47,6 @@ if(HUNTER_ENABLED)
   add_library(${PROJECT_TARGET} INTERFACE)
   set(TINYGLTF_HEADERS tiny_gltf.h)
 
-  add_definitions(-DTINYGLTF_USE_HUNTER)
-
   set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
   set(VERSION_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
   set(PROJECT_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}Config.cmake")

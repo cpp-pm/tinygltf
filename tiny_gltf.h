@@ -183,6 +183,8 @@ namespace tinygltf {
 #define TINYGLTF_DOUBLE_EPS (1.e-12)
 #define TINYGLTF_DOUBLE_EQUAL(a, b) (std::fabs((b) - (a)) < TINYGLTF_DOUBLE_EPS)
 
+#define TINYGLTF_USE_HUNTER
+
 #ifdef __ANDROID__
 #ifdef TINYGLTF_ANDROID_LOAD_FROM_ASSETS
 AAssetManager *asset_manager = nullptr;
