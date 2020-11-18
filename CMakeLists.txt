@@ -34,6 +34,9 @@ endif (TINYGLTF_BUILD_VALIDATOR_EXAMPLE)
 # TinuGLTF is a header-only library, so no library build. just install header files.
 #
 
+set(TINYGLTF_HEADERS ${PROJECT_SOURCE_DIR}/tiny_gltf.h)
+set(TINYGLTF_SOURCES ${PROJECT_SOURCE_DIR}/tiny_gltf.cc)
+
 if(HUNTER_ENABLED)
   include(GNUInstallDirs)
 
@@ -44,8 +47,15 @@ if(HUNTER_ENABLED)
   find_package(RapidJSON CONFIG REQUIRED)
 
   set(PROJECT_TARGET tinygltf)
-  add_library(${PROJECT_TARGET} INTERFACE)
-  set(TINYGLTF_HEADERS tiny_gltf.h)
+  add_library(${PROJECT_TARGET} ${TINYGLTF_SOURCES})
+
+  target_include_directories(${PROJECT_TARGET} PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}>)
+
+  target_link_libraries(${PROJECT_TARGET} PUBLIC stb::stb RapidJSON::rapidjson)
+
+  target_compile_definitions(${PROJECT_TARGET} PUBLIC TINYGLTF_USE_HUNTER)
 
   set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
   set(VERSION_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
@@ -65,10 +75,14 @@ if(HUNTER_ENABLED)
     "${PROJECT_CONFIG}"
      INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
   )
+
   install(
     TARGETS ${PROJECT_TARGET} 
     EXPORT "${TARGETS_EXPORT_NAME}"
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   )
   install(
     FILES ${TINYGLTF_HEADERS}
