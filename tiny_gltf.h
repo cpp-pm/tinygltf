@@ -1462,7 +1462,7 @@ class TinyGLTF {
 
 #endif  // TINY_GLTF_H_
 
-#if defined(TINYGLTF_IMPLEMENTATION) || defined(__INTELLISENSE__)
+
 #include <algorithm>
 //#include <cassert>
 #ifndef TINYGLTF_NO_FS
@@ -1628,6 +1628,8 @@ class TinyGLTF {
 #define TINYGLTF_LITTLE_ENDIAN 1
 #endif
 #endif
+
+#if defined(TINYGLTF_IMPLEMENTATION) || defined(__INTELLISENSE__)
 
 namespace {
 #ifdef TINYGLTF_USE_RAPIDJSON
