@@ -90,7 +90,7 @@ if(HUNTER_ENABLED)
   configure_file(${PROJECT_SOURCE_DIR}/tiny_gltf.h.in ${GENERATED_HEADER})
 
   install(
-    FILES ${HEADER_CONFIG}
+    FILES ${GENERATED_HEADER}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
   )
   install(
