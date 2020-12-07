@@ -1462,7 +1462,7 @@ class TinyGLTF {
 
 #endif  // TINY_GLTF_H_
 
-#if defined(TINYGLTF_IMPLEMENTATION) || defined(__INTELLISENSE__)
+
 #include <algorithm>
 //#include <cassert>
 #ifndef TINYGLTF_NO_FS
@@ -1536,11 +1536,19 @@ class TinyGLTF {
 #ifndef TINYGLTF_USE_RAPIDJSON
 #include "json.hpp"
 #else
+#ifdef TINYGLTF_USE_HUNTER
+#include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
+#else
 #include "document.h"
 #include "prettywriter.h"
 #include "rapidjson.h"
 #include "stringbuffer.h"
 #include "writer.h"
+#endif
 #endif
 #endif
 
@@ -1551,13 +1559,21 @@ class TinyGLTF {
 
 #ifndef TINYGLTF_NO_STB_IMAGE
 #ifndef TINYGLTF_NO_INCLUDE_STB_IMAGE
+#ifdef TINYGLTF_USE_HUNTER
+#include "stb/stb_image.h"
+#else
 #include "stb_image.h"
+#endif
 #endif
 #endif
 
 #ifndef TINYGLTF_NO_STB_IMAGE_WRITE
 #ifndef TINYGLTF_NO_INCLUDE_STB_IMAGE_WRITE
+#ifdef TINYGLTF_USE_HUNTER
+#include "stb/stb_image_write.h"
+#else
 #include "stb_image_write.h"
+#endif
 #endif
 #endif
 
@@ -1612,6 +1628,8 @@ class TinyGLTF {
 #define TINYGLTF_LITTLE_ENDIAN 1
 #endif
 #endif
+
+#if defined(TINYGLTF_IMPLEMENTATION) || defined(__INTELLISENSE__)
 
 namespace {
 #ifdef TINYGLTF_USE_RAPIDJSON
